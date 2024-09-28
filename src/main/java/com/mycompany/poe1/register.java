@@ -12,11 +12,14 @@ import java.util.Scanner;
  */
 
 
+
+
+
 public class register {
+    private String username;
+    private String password;
 
     public boolean checkUsername(Scanner sc) {
-        String username;
-
         System.out.println("Create your username:");
         username = sc.next();
 
@@ -30,10 +33,7 @@ public class register {
         }
     }
 
-    // Password validation
-    public static boolean checkPassword(Scanner sc) {
-        String password;
-
+    public boolean checkPassword(Scanner sc) {
         System.out.println("Create your password:");
         password = sc.next();
 
@@ -47,7 +47,6 @@ public class register {
         // Check each character in the password for the required conditions
         for (int i = 0; i < password.length(); i++) {
             char result = password.charAt(i);
-
             if (Character.isDigit(result)) {
                 hasDigit = true;
             }
@@ -67,9 +66,28 @@ public class register {
             return false;
         }
     }
-        public class Login{
-            
-            
-        }
+
+    public String getUsername() {
+        return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public static boolean loginUser(Scanner sc, String storedUsername, String storedPassword, String firstName, String lastName) {
+        System.out.println("Please enter your username for login: ");
+        String enteredUsername = sc.next();
+
+        System.out.println("Please enter your password for login: ");
+        String enteredPassword = sc.next();
+
+        if (enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword)) {
+            System.out.println("Welcome " + firstName + " " + lastName + ", it is great to see you again!");
+            return true;  // Login successful
+        } else {
+            System.out.println("Username or password validation failed.");
+            return false;  // Login failed
+        }
+    }
+}
