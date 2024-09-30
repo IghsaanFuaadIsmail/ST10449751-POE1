@@ -14,29 +14,45 @@ import java.util.Scanner;
 
 
 
-
 public class register {
     private String username;
     private String password;
-
-    public boolean checkUsername(Scanner sc) {
-        System.out.println("Create your username:");
-        username = sc.next();
-
-        // Check if username contains "_" and is no more than 5 characters
-        if (username.contains("_") && username.length() <= 5) {
-            System.out.println("Username successfully captured.");
-            return true;
-        } else {
-            System.out.println("Username is not correctly formatted, please ensure that your username contains an underscore and is no more than 5 characters in length.");
-            return false;
-        }
+    public register() {
+        
+        this.username = username;
+        this.password = password;
     }
 
-    public boolean checkPassword(Scanner sc) {
-        System.out.println("Create your password:");
-        password = sc.next();
+    // Getter for username
+    public String getUsername() {
+        return username;
+    }
 
+    // Setter for username
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    // Getter for password
+    public String getPassword() {
+        return password;
+    }
+
+    // Setter for password
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // Check if the username is valid
+    public boolean checkUsername(String username) {
+        // Check if username contains "_" and is no more than 5 characters
+        return username.contains("_") && username.length() <= 5;
+    }
+    
+
+    public boolean checkPassword(String password) {
+        System.out.println("Create your password:");
+       
         boolean hasDigit = false;
         boolean hasCapital = false;
         boolean hasSpecial = false;
@@ -58,36 +74,30 @@ public class register {
             }
         }
 
-        if (hasDigit && hasCapital && hasSpecial && isLong) {
-            System.out.println("Password successfully captured.");
-            return true;
+        return hasDigit && hasCapital && hasSpecial && isLong;
+           
+           
+        } 
+
+
+   
+
+  // Method to log in the user
+// Method to log in the user
+// Method to log in the user
+public static boolean loginUser(String enteredUsername, String enteredPassword, String storedUsername, String storedPassword) {
+    // Check if the provided credentials match the stored username and password
+    boolean loginSuccessful = enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword);
+    
+    return loginSuccessful;  // Return whether login was successful
+}
+    // Public static method to return login success or failure message
+    public static String returnLoginStatus(boolean isSuccess, String firstName, String lastName) {
+        if (isSuccess) {
+            return "Welcome " + firstName + " " + lastName + ", it is great to see you again!";
         } else {
-            System.out.println("Password is not formatted correctly. Please ensure that the password contains at least 8 characters, a capital letter, a special character, and a number.");
-            return false;
+            return "Username or password validation failed.";
         }
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public static boolean loginUser(Scanner sc, String storedUsername, String storedPassword, String firstName, String lastName) {
-        System.out.println("Please enter your username for login: ");
-        String enteredUsername = sc.next();
-
-        System.out.println("Please enter your password for login: ");
-        String enteredPassword = sc.next();
-
-        if (enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword)) {
-            System.out.println("Welcome " + firstName + " " + lastName + ", it is great to see you again!");
-            return true;  // Login successful
-        } else {
-            System.out.println("Username or password validation failed.");
-            return false;  // Login failed
-        }
-    }
 }

@@ -12,49 +12,54 @@ import java.util.Scanner;
  */
 public class POE1 {
 
- 
-
-  
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        register myRegisterObj = new register();
+    Scanner sc = new Scanner(System.in);
+    register myRegisterObj = new register();
+    String username;
+    String password;
 
-        // Check if the username is valid
-        boolean isUsernameValid = myRegisterObj.checkUsername(sc);
-        String username = "";
-        String password = "";
+    // Prompt for username
+    System.out.println("Please create a username:");
+    username = sc.next();
 
-        if (isUsernameValid) {
-            // Check the password
-            boolean isPasswordValid = myRegisterObj.checkPassword(sc);
-            if (isPasswordValid) {
-                // Capture username and password after validation
-                username = myRegisterObj.getUsername();  // Retrieve captured username
-                password = myRegisterObj.getPassword();  // Retrieve captured password
+    // Check if the username is valid
+    boolean isUsernameValid = myRegisterObj.checkUsername(username);
 
-                // Collect first and last names for greeting purposes
-                System.out.println("Enter First Name: ");
-                String firstName = sc.next();
+    if (isUsernameValid) {
+        System.out.println("Username succesfully captured");
+        // If the username is valid, prompt for password
+        System.out.println("Please create a password:");
+        password = sc.next();
 
-                System.out.println("Enter Last Name: ");
-                String lastName = sc.next();
+        // Check the password complexity
+        boolean isPasswordValid = myRegisterObj.checkPassword(password);
+        if (isPasswordValid) {
+            System.out.println("Password successfully captured.");
 
-                // Attempt to log in with the registered credentials
-                boolean isLoginSuccessful = register.loginUser(sc, username, password, firstName, lastName);
+            // Capture first and last name
+            System.out.println("Enter First Name: ");
+            String firstName = sc.next();
 
-                // Output login result
-                if (isLoginSuccessful) {
-                    System.out.println("Login was successful.");
-                } else {
-                    System.out.println("Login failed. Please check your username and password.");
-                }
+            System.out.println("Enter Last Name: ");
+            String lastName = sc.next();
+        
+   
+            // Attempt to log in with the registered credentials
+          boolean isLoginSuccessful = register.loginUser(username, password, firstName, lastName);
+          if (isLoginSuccessful) {
+                System.out.println("Login was successful.");
             } else {
-                System.out.println("Password validation failed.");
+                System.out.println("Please check your username and password.");
             }
         } else {
-            System.out.println("Username validation failed.");
+            // Password is not valid
+            System.out.println("Password is not correctly formatted. Please ensure that your password contains at least 8 characters, a capital letter, a number, and a special character.");
         }
-
-        sc.close();  // Close the scanner
+    } else {
+        // Username is not valid
+        System.out.println("Username is not correctly formatted. Please ensure that your username contains an underscore and is no more than 5 characters in length.");
     }
+
+    sc.close();  // Close the scanner
+}
 }
