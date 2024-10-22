@@ -51,7 +51,7 @@ public class register {
     
 
     public boolean checkPassword(String password) {
-        System.out.println("Create your password:");
+      
        
         boolean hasDigit = false;
         boolean hasCapital = false;
@@ -82,15 +82,15 @@ public class register {
 
    
 
-  // Method to log in the user
+  
+
 // Method to log in the user
-// Method to log in the user
-public static boolean loginUser(String enteredUsername, String enteredPassword, String storedUsername, String storedPassword) {
+    public static boolean loginUser(String enteredUsername, String enteredPassword, String storedUsername, String storedPassword) {
     // Check if the provided credentials match the stored username and password
-    boolean loginSuccessful = enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword);
-    
-    return loginSuccessful;  // Return whether login was successful
+    return enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword);
 }
+
+
     // Public static method to return login success or failure message
     public static String returnLoginStatus(boolean isSuccess, String firstName, String lastName) {
         if (isSuccess) {
@@ -99,5 +99,4 @@ public static boolean loginUser(String enteredUsername, String enteredPassword, 
             return "Username or password validation failed.";
         }
     }
-
 }
