@@ -4,7 +4,7 @@
  */
 package com.mycompany.poe1;
 
-import java.util.Scanner;
+
 
 /**
  *
@@ -15,84 +15,64 @@ import java.util.Scanner;
 
 
 public class register {
-    private String username;
-    private String password;
-    public register() {
-        
-        this.username = username;
-        this.password = password;
-    }
+  
 
-    // Getter for username
-    public String getUsername() {
-        return username;
-    }
+    private String username;  
+    private String password;  
 
-    // Setter for username
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    // Getter for password
-    public String getPassword() {
-        return password;
-    }
-
-    // Setter for password
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // Check if the username is valid
+    // Method to check if the username is valid
     public boolean checkUsername(String username) {
-        // Check if username contains "_" and is no more than 5 characters
+        // Username must contain an underscore and be at least 5 characters long
         return username.contains("_") && username.length() <= 5;
     }
-    
 
+    // Method to check if the password meets complexity requirements
     public boolean checkPassword(String password) {
-      
-       
         boolean hasDigit = false;
         boolean hasCapital = false;
         boolean hasSpecial = false;
-        boolean isLong = password.length() >= 8;
+        boolean isLongEnough = password.length() >= 8;
 
         String specialCharacters = "+=-_)(*&^%$#@!";
 
         // Check each character in the password for the required conditions
         for (int i = 0; i < password.length(); i++) {
-            char result = password.charAt(i);
-            if (Character.isDigit(result)) {
+            char character = password.charAt(i);
+            if (Character.isDigit(character)) {
                 hasDigit = true;
             }
-            if (Character.isUpperCase(result)) {
+            if (Character.isUpperCase(character)) {
                 hasCapital = true;
             }
-            if (specialCharacters.indexOf(result) >= 0) {
+            if (specialCharacters.contains(String.valueOf(character))) {
                 hasSpecial = true;
             }
         }
 
-        return hasDigit && hasCapital && hasSpecial && isLong;
-           
-           
-        } 
+        return isLongEnough && hasDigit && hasCapital && hasSpecial;
+    }
 
+    // Method to register the user by setting the username and password
+    public String registerUser(String username, String password) {
+        if (!checkUsername(username)) {
+            return "Username is not correctly formatted, please ensure that your username contains an underscore and is no more than 5 characters in length.";
+        } else if (!checkPassword(password)) {
+            return "Password is not correctly formatted, please ensure that the password contains at least 8 characters, a capital letter, a number and a special character.";
+        } else {
+            this.username = username;
+            this.password = password;
+            return "User successfully registered";
+        }
+    }
 
-   
+    // Method to log in the user
+    public boolean loginUser(String enteredUsername, String enteredPassword) {
+        // Check if the provided credentials match the stored username and password
+        return enteredUsername.equals(this.username) && enteredPassword.equals(this.password);
+    }
 
-  
-
-// Method to log in the user
-    public static boolean loginUser(String enteredUsername, String enteredPassword, String storedUsername, String storedPassword) {
-    // Check if the provided credentials match the stored username and password
-    return enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword);
-}
-
-
-    // Public static method to return login success or failure message
-    public static String returnLoginStatus(boolean isSuccess, String firstName, String lastName) {
+    // Method to return login success or failure message
+    public String returnLoginStatus(boolean isSuccess, String firstName, String lastName) {
         if (isSuccess) {
             return "Welcome " + firstName + " " + lastName + ", it is great to see you again!";
         } else {

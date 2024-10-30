@@ -35,6 +35,7 @@ public class Tasks {
 
     // Method for adding tasks
     public void addTasks() {
+       /* int a;
         String [] className = new String[a];
       
       for(int i = 0; i < a  ; i++){
@@ -42,9 +43,45 @@ public class Tasks {
       
        className[i] = JOptionPane.showInputDialog(null, "Enter a name"+(i + 1)+ ":");
        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+       */
        
-       
-    }
+    
     }
 
     // Method for showing a report
