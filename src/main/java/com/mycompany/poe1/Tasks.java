@@ -138,6 +138,9 @@ public class Tasks {
 
         // Display tasks with status "Done"
         displayDoneTasks();
+
+        // Display task with the longest duration
+        displayLongestDurationTask();
     }
 
     /**
@@ -162,5 +165,28 @@ public class Tasks {
 
         // Display tasks with status 'Done'
         JOptionPane.showMessageDialog(null, doneTasksInfo.toString());
+    }
+
+    /**
+     * Displays the developer and task duration of the task with the longest duration.
+     */
+    public static void displayLongestDurationTask() {
+        // Find the index of the task with the longest duration
+        int longestTaskIndex = 0;
+        int longestDuration = taskDurations.get(0);
+
+        for (int i = 1; i < taskDurations.size(); i++) {
+            if (taskDurations.get(i) > longestDuration) {
+                longestDuration = taskDurations.get(i);
+                longestTaskIndex = i;
+            }
+        }
+
+        // Display the developer and duration of the longest task
+        String developer = developers.get(longestTaskIndex);
+        int duration = taskDurations.get(longestTaskIndex);
+
+        JOptionPane.showMessageDialog(null, "The task with the longest duration is assigned to " + developer +
+                " with a duration of " + duration + " hours.");
     }
 }
