@@ -136,37 +136,31 @@ public class Tasks {
         // Show total hours of all tasks added
         JOptionPane.showMessageDialog(null, "All tasks added successfully! Total hours: " + returnTotalHours());
 
-        // Display the developers, task names, task IDs, durations, and statuses
-        StringBuilder developersList = new StringBuilder("Developers: ");
-        for (String developer : developers) {
-            developersList.append(developer).append("\n");
+        // Display tasks with status "Done"
+        displayDoneTasks();
+    }
+
+    /**
+     * Displays all tasks with status "Done", showing developer, task name, and task duration.
+     */
+    public static void displayDoneTasks() {
+        StringBuilder doneTasksInfo = new StringBuilder("Tasks with status 'Done':\n");
+
+        boolean foundDoneTask = false;
+        for (int i = 0; i < taskStatuses.size(); i++) {
+            if (taskStatuses.get(i).equals("Done")) {
+                foundDoneTask = true;
+                doneTasksInfo.append("Developer: ").append(developers.get(i))
+                        .append("\nTask Name: ").append(taskNames.get(i))
+                        .append("\nTask Duration: ").append(taskDurations.get(i)).append(" hours\n\n");
+            }
         }
 
-        StringBuilder taskNamesList = new StringBuilder("Task Names: ");
-        for (String taskName : taskNames) {
-            taskNamesList.append(taskName).append("\n");
+        if (!foundDoneTask) {
+            doneTasksInfo.append("No tasks with status 'Done'.");
         }
 
-        StringBuilder taskIDsList = new StringBuilder("Task IDs: ");
-        for (String taskID : taskIDs) {
-            taskIDsList.append(taskID).append("\n");
-        }
-
-        StringBuilder taskDurationsList = new StringBuilder("Task Durations: ");
-        for (Integer taskDuration : taskDurations) {
-            taskDurationsList.append(taskDuration).append(" hours\n");
-        }
-
-        StringBuilder taskStatusesList = new StringBuilder("Task Statuses: ");
-        for (String taskStatus : taskStatuses) {
-            taskStatusesList.append(taskStatus).append("\n");
-        }
-
-        // Show all the details in a single message
-        JOptionPane.showMessageDialog(null, developersList.toString() +
-                taskNamesList.toString() +
-                taskIDsList.toString() +
-                taskDurationsList.toString() +
-                taskStatusesList.toString());
+        // Display tasks with status 'Done'
+        JOptionPane.showMessageDialog(null, doneTasksInfo.toString());
     }
 }
