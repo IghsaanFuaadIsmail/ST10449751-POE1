@@ -141,6 +141,61 @@ public class Tasks {
 
         // Display task with the longest duration
         displayLongestDurationTask();
+
+        // Allow users to search tasks by task name
+        searchTaskByName();
+
+        // Allow users to search tasks by developer name
+        searchTaskByDeveloper();
+
+        // Allow users to delete a task by name
+        deleteTaskByName();
+
+        // Display all tasks as a report
+        displayTaskReport();
+    }
+
+    /**
+     * Displays a report with the details of all captured tasks.
+     */
+    public static void displayTaskReport() {
+        StringBuilder report = new StringBuilder("Task Report:\n");
+
+        for (Tasks task : tasks) {
+            report.append(task.printTaskDetails()).append("\n\n");
+        }
+
+        // Display the report
+        JOptionPane.showMessageDialog(null, report.toString());
+    }
+
+    /**
+     * Deletes a task based on the task name.
+     */
+    public static void deleteTaskByName() {
+        String taskNameToDelete = JOptionPane.showInputDialog("Enter the task name to delete:");
+
+        // Check if the task exists
+        int taskIndex = -1;
+        for (int i = 0; i < taskNames.size(); i++) {
+            if (taskNames.get(i).equalsIgnoreCase(taskNameToDelete)) {
+                taskIndex = i;
+                break;
+            }
+        }
+
+        if (taskIndex == -1) {
+            JOptionPane.showMessageDialog(null, "No task found with the name '" + taskNameToDelete + "'.");
+        } else {
+            // Remove the task from all the arrays
+            developers.remove(taskIndex);
+            taskNames.remove(taskIndex);
+            taskIDs.remove(taskIndex);
+            taskDurations.remove(taskIndex);
+            taskStatuses.remove(taskIndex);
+
+            JOptionPane.showMessageDialog(null, "Task '" + taskNameToDelete + "' has been deleted successfully.");
+        }
     }
 
     /**
@@ -188,5 +243,58 @@ public class Tasks {
 
         JOptionPane.showMessageDialog(null, "The task with the longest duration is assigned to " + developer +
                 " with a duration of " + duration + " hours.");
+    }
+
+    /**
+     * Prompts the user to search for tasks by task name and displays the results.
+     */
+    public static void searchTaskByName() {
+        String searchTerm = JOptionPane.showInputDialog("Enter task name to search:");
+
+        StringBuilder searchResults = new StringBuilder("Search results:\n");
+
+        boolean found = false;
+        for (int i = 0; i < taskNames.size(); i++) {
+            if (taskNames.get(i).equalsIgnoreCase(searchTerm)) {
+                found = true;
+                searchResults.append("Task Name: ").append(taskNames.get(i))
+                        .append("\nDeveloper: ").append(developers.get(i))
+                        .append("\nTask Status: ").append(taskStatuses.get(i))
+                        .append("\n\n");
+            }
+        }
+
+        if (!found) {
+            searchResults.append("No tasks found with that name.");
+        }
+
+        // Display search results
+        JOptionPane.showMessageDialog(null, searchResults.toString());
+    }
+
+    /**
+     * Prompts the user to search for tasks by developer and displays task names and statuses.
+     */
+    public static void searchTaskByDeveloper() {
+        String developerName = JOptionPane.showInputDialog("Enter the developer name to search for:");
+
+        StringBuilder developerTaskResults = new StringBuilder("Tasks assigned to '" + developerName + "':\n");
+
+        boolean found = false;
+        for (int i = 0; i < developers.size(); i++) {
+            if (developers.get(i).equalsIgnoreCase(developerName)) {
+                found = true;
+                developerTaskResults.append("Task Name: ").append(taskNames.get(i))
+                        .append("\nTask Status: ").append(taskStatuses.get(i))
+                        .append("\n\n");
+            }
+        }
+
+        if (!found) {
+            developerTaskResults.append("No tasks found for this developer.");
+        }
+
+        // Display developer's task results
+        JOptionPane.showMessageDialog(null, developerTaskResults.toString());
     }
 }
