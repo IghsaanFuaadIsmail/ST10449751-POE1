@@ -5,6 +5,7 @@
 
 package com.mycompany.poe1;
 import javax.swing.JOptionPane;
+import java.util.*;
 /**
  *
  * @author RC_Student_lab
@@ -60,8 +61,40 @@ public class POE1 {
         JOptionPane.showMessageDialog(null, loginStatus);
 
         // If login is successful, show the Tasks menu
-        if (isLoginSuccessful) {
-            new Tasks(); // This will display the EasyKanban menu
+        
+        if (loginStatus.startsWith("Welcome")) {
+            JOptionPane.showMessageDialog(null, "Welcome to EasyKanban!");
+
+            // Main menu loop for task management
+            while (true) {
+                // Display menu options to the user
+                String menuOption = JOptionPane.showInputDialog(null,
+                        "Select an option:\n1) Add Tasks\n2) Show Report (Coming Soon)\n3) Quit");
+                
+                // Process user selection
+                switch (menuOption) {
+                    case "1":
+                        // Option to add tasks; calls Task class's addTasks method
+                        Tasks.addTasks();
+                        break;
+                    case "2":
+                        // Placeholder for future report functionality
+                        JOptionPane.showMessageDialog(null, "Coming Soon");
+                        break;
+                    case "3":
+                        // Exit application and display total hours of all tasks before closing
+                        JOptionPane.showMessageDialog(null, "Exiting application. Total task hours: " + Tasks.returnTotalHours() + " hours.");
+                        System.exit(0);
+                    default:
+                        // Handle invalid menu option
+                        JOptionPane.showMessageDialog(null, "Invalid option! Please select again.");
+                }
+            }
+        } else {
+            // Inform the user of a failed login and exit
+            JOptionPane.showMessageDialog(null, "Login failed! Exiting application.");
+            System.exit(0);  // Exit after failed login
         }
+        //dialog.dispose();  // Close dialog box at the end of the session
     }
 }
